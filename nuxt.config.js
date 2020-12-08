@@ -59,4 +59,4 @@ export default {
     optimizeCSS: process.env.NODE_ENV === 'production',
     transpile: ['vue-intersect'],
   },
-}
+};
