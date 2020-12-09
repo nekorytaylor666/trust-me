@@ -1,0 +1,31 @@
+@font-face {
+	font-family: 'PF DinDisplay Pro';
+	src: local('PFDinDisplayPro-Thin'), url('~assets/PFDinDisplayPro/PFDinDisplayPro-Thin.ttf') format('truetype');
+	font-weight: 100;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'PF DinDisplay Pro';
+	src: local('PFDinDisplayPro-Regular'), url('~assets/PFDinDisplayPro/PFDinDisplayPro-Regular.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'PF DinDisplay Pro';
+	src: local('PFDinDisplayPro-Bold'), url('~assets/PFDinDisplayPro/PFDinDisplayPro-Bold.ttf') format('truetype');
+	font-weight: bold;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'PF DinDisplay Pro';
+	src: local('PFDinDisplayPro-Medium'), url('~assets/PFDinDisplayPro/PFDinDisplayPro-Medium.ttf') format('truetype');
+	font-weight: 500;
+	font-style: normal;
+}
+
+html {
+	font-family: "PF DinDisplay Pro";
+}
