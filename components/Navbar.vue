@@ -124,7 +124,7 @@
           <div class="flex items-center space-x-8">
             <a class="text-blue-500 underline" href="#">Регистрация</a>
             <a
-              class="border-blue-500 border-2 rounded-xl py-2 px-4 flex items-center space-x-2 text-blue-500 text-lg"
+              class="border-blue-500 border-2 rounded-xl py-2 px-4 flex items-center space-x-2 text-blue-500"
               href="#"
             >
               <font-awesome-icon

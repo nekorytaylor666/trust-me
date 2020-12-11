@@ -1,9 +1,5 @@
 <template>
-  <li
-    :class="`flex justify-center text-center p-6 flex-1 cursor-pointer ${
-      active ? 'active-category' : 'default-category'
-    }`"
-  >
+  <li :class="`flex justify-center text-center  p-6 flex-1  `">
     <p>{{ title }}</p>
   </li>
 </template>
@@ -17,12 +13,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.active-category {
-  @apply border-b-2 border-skyblue;
-}
-
-.default-category {
-  @apply border-b-2 border-lightgray;
-}
-</style>
+<style lang="scss" scoped></style>
