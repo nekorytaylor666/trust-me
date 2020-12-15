@@ -122,8 +122,10 @@
             </div>
           </div>
           <div class="flex items-center space-x-8">
-            <a class="text-blue-500 underline" href="#">Регистрация</a>
-            <a
+            <button class="text-blue-500 underline" @click="signupButtonClick">
+              Регистрация
+            </button>
+            <button
               class="border-blue-500 border-2 rounded-xl py-2 px-4 flex items-center space-x-2 text-blue-500"
               href="#"
             >
@@ -131,17 +133,20 @@
                 class="text-xl text-blue-500"
                 :icon="['fas', 'user']"
               />
-              <p>Войти</p></a
-            >
+              <p>Войти</p>
+            </button>
           </div>
         </div>
       </div>
     </div>
+    <modal name="auth-popup"><auth-form /></modal>
   </nav>
 </template>
 
 <script>
+import AuthForm from './AuthForm/AuthForm.vue';
 export default {
+  components: { AuthForm },
   data() {
     return {
       sticky: 0,
@@ -159,9 +164,13 @@ export default {
   mounted() {
     const navbar = document.getElementById('navbar');
     // init a offset y to sticky variable
+
     this.sticky = navbar.offsetTop;
   },
   methods: {
+    signupButtonClick() {
+      this.$modal.show('auth-popup', { formType: 'signUp' });
+    },
     handleScroll(event) {
       //  to prevent collisions from sticking navbar we need to add padding to next div after nav
       //  that's why we get navbar container and add style stickyoffset with padding for next element

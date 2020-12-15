@@ -1,5 +1,5 @@
 <template>
-  <div class="py-4">
+  <div>
     <Pane>
       <top-list-navigation @categoryChange="onCategoryChange" />
       <div class="flex justify-between p-6 border-b-2 border-lightgray">
@@ -71,7 +71,6 @@ export default {
   computed: {
     topList() {
       const topLists = this.topLists[this.currentCategory.name];
-      console.log(topLists);
       return topLists;
     },
   },
