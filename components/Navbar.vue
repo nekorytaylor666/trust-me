@@ -139,7 +139,16 @@
         </div>
       </div>
     </div>
-    <modal name="auth-popup"><auth-form /></modal>
+    <modal
+      name="demo-login"
+      transition="pop-out"
+      classes="rounded-2xl bg-white shadow-lg"
+      :width="450"
+      :height="'auto'"
+      :scrollable="true"
+    >
+      <auth-form />
+    </modal>
   </nav>
 </template>
 
@@ -164,12 +173,13 @@ export default {
   mounted() {
     const navbar = document.getElementById('navbar');
     // init a offset y to sticky variable
+    this.$modal.show('demo-login');
 
     this.sticky = navbar.offsetTop;
   },
   methods: {
     signupButtonClick() {
-      this.$modal.show('auth-popup', { formType: 'signUp' });
+      this.$modal.show('demo-login');
     },
     handleScroll(event) {
       //  to prevent collisions from sticking navbar we need to add padding to next div after nav

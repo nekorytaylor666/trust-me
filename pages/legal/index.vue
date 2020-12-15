@@ -1,7 +1,6 @@
 <template>
   <div class="py-4 grid-with-sidebar">
     <div>
-      <div><button @click="show">Hello world</button></div>
       <top-list />
       <div class="mt-6 space-y-10">
         <review-card />

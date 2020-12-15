@@ -12,6 +12,7 @@ module.exports = {
         blackish: '#3A3A3A',
         skyblue: '#0085FF',
         accentYellow: '#FCC129',
+        accentGray: '#A0A0A0',
       },
     },
   },
