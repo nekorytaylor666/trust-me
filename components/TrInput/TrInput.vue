@@ -9,8 +9,10 @@
         :id="name"
         :type="type"
         :name="name"
+        :value="value"
         class="bg-transparent outline-none w-full"
         :placeholder="placeholder ? placeholder : `Ваш ${name}`"
+        @input="handleInput($event.target.value)"
       />
     </div>
   </div>
@@ -21,9 +23,18 @@ export default {
   props: {
     name: { type: String, required: true },
     label: { type: String, default: '' },
-    icon: { type: Array },
+    icon: { type: Array, required: false },
     placeholder: { type: String, default: '' },
     type: { type: String, default: 'text' },
+    value: { type: String, default: '' },
+  },
+  data() {
+    return { content: this.value };
+  },
+  methods: {
+    handleInput(value) {
+      this.$emit('input', value);
+    },
   },
 };
 </script>
