@@ -2,9 +2,9 @@
   <div class="flex flex-col">
     <label :for="name" class="hidden">{{ label ? label : name }}</label>
     <div
-      class="p-4 bg-lightgray text-darkgray flex items-center space-x-3 rounded-lg"
+      class="p-4 bg-lightgray text-accentGray flex items-center space-x-3 rounded-lg"
     >
-      <font-awesome-icon class="text-xl text-darkgray" :icon="icon" />
+      <font-awesome-icon class="text-xl" :icon="icon" />
       <input
         :id="name"
         :type="type"

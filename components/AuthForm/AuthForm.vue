@@ -2,17 +2,27 @@
   <div>
     <div class="grid grid-cols-2 text-xl">
       <button
-        class="py-4 px-6 border-b-2 border-lightgray text-gray-500 text-center"
+        :class="`outline-none focus:outline-none py-4 px-6 border-b-2  text-center ${
+          currentForm === 'login'
+            ? 'text-skyblue border-skyblue'
+            : 'border-lightgray text-gray-500'
+        }`"
+        @click="changeForm('login')"
       >
         Войти
       </button>
       <button
-        class="py-2 px-6 border-b-2 text-skyblue border-skyblue text-center"
+        :class="`outline-none focus:outline-none py-4 px-6 border-b-2  text-center ${
+          currentForm === 'registration'
+            ? 'text-skyblue border-skyblue'
+            : 'border-lightgray text-gray-500'
+        }`"
+        @click="changeForm('registration')"
       >
         Регистрация
       </button>
     </div>
-    <form class="p-6 space-y-4">
+    <form v-if="currentForm === 'registration'" class="p-6 px-8 space-y-4">
       <tr-input :lable="'имя'" :name="'name'" :placeholder="'Ваше имя'" />
       <tr-input
         :lable="'фамилия'"
@@ -69,6 +79,33 @@
         </button>
       </div>
     </form>
+    <form v-if="currentForm === 'login'" class="p-6 px-8 space-y-4">
+      <tr-input
+        :lable="'имя'"
+        :name="'name'"
+        :icon="['fas', 'user']"
+        :placeholder="'Введите номер телефона либо вашу почту'"
+      />
+
+      <tr-input
+        :lable="'пароль'"
+        :name="'password'"
+        :icon="['fas', 'key']"
+        :type="'password'"
+        :placeholder="`Придумайте пароль`"
+      />
+
+      <div class="grid gap-4 grid-cols-2">
+        <button
+          class="bg-lightgray border-gray-400 border-2 text-darkgray p-4 w-full rounded-lg font-light"
+        >
+          Отменить
+        </button>
+        <button class="bg-skyblue text-white p-4 w-full rounded-lg font-light">
+          Войти
+        </button>
+      </div>
+    </form>
   </div>
 </template>
 
@@ -76,6 +113,16 @@
 import TrInput from '../TrInput/TrInput.vue';
 export default {
   components: { TrInput },
+  data() {
+    return {
+      currentForm: 'login',
+    };
+  },
+  methods: {
+    changeForm(form) {
+      this.currentForm = form;
+    },
+  },
 };
 </script>
 
