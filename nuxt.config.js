@@ -31,6 +31,7 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/auth-next',
     [
       'nuxt-fontawesome',
       {
@@ -50,7 +51,9 @@ export default {
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {},
-
+  router: {
+    // middleware: ['auth'],
+  },
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
     parallel: true,

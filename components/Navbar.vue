@@ -173,7 +173,6 @@ export default {
   mounted() {
     const navbar = document.getElementById('navbar');
     // init a offset y to sticky variable
-    this.$modal.show('demo-login');
 
     this.sticky = navbar.offsetTop;
   },
