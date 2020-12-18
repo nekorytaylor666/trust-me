@@ -122,12 +122,16 @@
             </div>
           </div>
           <div class="flex items-center space-x-8">
-            <button class="text-blue-500 underline" @click="signupButtonClick">
+            <button
+              class="text-blue-500 underline"
+              @click="signupButtonClick('registration')"
+            >
               Регистрация
             </button>
             <button
               class="border-blue-500 border-2 rounded-xl py-2 px-4 flex items-center space-x-2 text-blue-500"
               href="#"
+              @click="signupButtonClick('login')"
             >
               <font-awesome-icon
                 class="text-xl text-blue-500"
@@ -139,23 +143,13 @@
         </div>
       </div>
     </div>
-    <modal
-      name="demo-login"
-      transition="pop-out"
-      classes="rounded-2xl bg-white shadow-lg"
-      :width="450"
-      :height="'auto'"
-      :scrollable="true"
-    >
-      <auth-form />
-    </modal>
+    <modal />
   </nav>
 </template>
 
 <script>
 import AuthForm from './AuthForm/AuthForm.vue';
 export default {
-  components: { AuthForm },
   data() {
     return {
       sticky: 0,
@@ -177,8 +171,18 @@ export default {
     this.sticky = navbar.offsetTop;
   },
   methods: {
-    signupButtonClick() {
-      this.$modal.show('demo-login');
+    signupButtonClick(formType) {
+      this.$modal.show(
+        AuthForm,
+        { initialForm: formType },
+        {
+          classes: 'rounded-2xl bg-white shadow-lg',
+          transition: 'pop-out',
+          width: '450',
+          height: 'auto',
+          scrollable: true,
+        }
+      );
     },
     handleScroll(event) {
       //  to prevent collisions from sticking navbar we need to add padding to next div after nav

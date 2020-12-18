@@ -1,5 +1,5 @@
 <template>
-  <form class="p-6 px-8 space-y-4">
+  <form class="p-6 px-8 space-y-4" @submit.prevent="submitForm">
     <div>
       <tr-input
         v-model.lazy="$v.login.$model"
@@ -37,9 +37,11 @@
       >
         Отменить
       </button>
-      <button class="bg-skyblue text-white p-4 w-full rounded-lg font-light">
-        Войти
-      </button>
+      <input
+        type="submit"
+        class="bg-skyblue text-white p-4 w-full rounded-lg font-light"
+        value="Войти"
+      />
     </div>
   </form>
 </template>
@@ -49,10 +51,16 @@ import { required } from 'vuelidate/lib/validators';
 import TrInput from '../TrInput/TrInput.vue';
 export default {
   components: { TrInput },
+  props: {
+    onSubmit: {
+      type: Function,
+      default: () => {},
+    },
+  },
   data() {
     return {
-      login: '',
-      password: '',
+      login: 'admin228',
+      password: 'Nekorytaylor123',
     };
   },
   validations: {
@@ -61,6 +69,17 @@ export default {
     },
     password: {
       required,
+    },
+  },
+  methods: {
+    submitForm() {
+      console.log('submit!');
+      this.$v.$touch();
+      if (this.$v.$invalid) {
+        this.submitStatus = 'ERROR';
+      } else {
+        this.onSubmit({ login: this.login, password: this.password });
+      }
     },
   },
 };

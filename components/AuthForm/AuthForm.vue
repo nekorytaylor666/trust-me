@@ -23,7 +23,7 @@
       </button>
     </div>
     <register-form v-if="currentForm === 'registration'" />
-    <login-form v-if="currentForm === 'login'" />
+    <login-form v-if="currentForm === 'login'" :on-submit="onLoginSubmit" />
   </div>
 </template>
 
@@ -32,15 +32,27 @@ import LoginForm from '../LoginForm/LoginForm.vue';
 import RegisterForm from '../RegisterForm/RegisterForm.vue';
 export default {
   components: { RegisterForm, LoginForm },
+  props: {
+    initialForm: { type: String, default: 'registration' },
+  },
   data() {
     return {
-      currentForm: 'login',
+      currentForm: this.initialForm,
     };
   },
 
   methods: {
     changeForm(form) {
       this.currentForm = form;
+    },
+    onLoginSubmit(formData) {
+      // this.$auth.loginWith('local', {
+      //   data: { ...formData },
+      // });
+      this.$axios.post('http://185.113.134.108/api/Account/Login', {
+        login: 'admin228',
+        password: 'Nekorytaylor123',
+      });
     },
   },
 };

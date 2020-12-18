@@ -1,5 +1,5 @@
 <template>
-  <form class="p-6 px-8 space-y-4">
+  <form class="p-6 px-8 space-y-4" @submit.prevent="submitForm">
     <div>
       <tr-input
         v-model.trim.lazy="$v.name.$model"
@@ -133,7 +133,6 @@
         value="Регистрация"
         type="submit"
         class="bg-accentGray text-white p-4 w-full rounded-lg font-light"
-        @click.prevent="submitForm"
       />
     </div>
   </form>
@@ -145,6 +144,12 @@ import TrInput from '../TrInput/TrInput.vue';
 
 export default {
   components: { TrInput },
+  props: {
+    onSubmit: {
+      type: Function,
+      default: () => {},
+    },
+  },
   data() {
     return {
       name: '',
@@ -192,11 +197,13 @@ export default {
       if (this.$v.$invalid) {
         this.submitStatus = 'ERROR';
       } else {
-        // do your submit logic here
-        this.submitStatus = 'PENDING';
-        setTimeout(() => {
-          this.submitStatus = 'OK';
-        }, 500);
+        this.onSubmit({
+          name: this.name,
+          password: this.password,
+          email: this.email,
+          secondName: this.secondName,
+          phoneNumber: this.phoneNumber,
+        });
       }
     },
   },

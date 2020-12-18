@@ -50,7 +50,9 @@ export default {
   ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
-  axios: {},
+  axios: {
+    baseUrl: 'http://185.113.134.108/api',
+  },
   router: {
     // middleware: ['auth'],
   },
@@ -61,5 +63,38 @@ export default {
     extractCSS: process.env.NODE_ENV === 'production',
     optimizeCSS: process.env.NODE_ENV === 'production',
     transpile: ['vue-intersect'],
+  },
+  auth: {
+    strategies: {
+      local: {
+        token: {
+          property: 'token',
+          // required: true,
+          // type: 'Bearer'
+        },
+        user: {
+          property: 'user',
+          // autoFetch: true
+        },
+        endpoints: {
+          login: {
+            url: 'http://185.113.134.108/api/Account/Login',
+            method: 'post',
+          },
+          register: {
+            url: '/Account/Register',
+            method: 'post',
+          },
+          logout: {
+            url: '/Account/Logout',
+            method: 'post',
+          },
+          user: {
+            url: '/Account/User',
+            method: 'get',
+          },
+        },
+      },
+    },
   },
 };
