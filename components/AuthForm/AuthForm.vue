@@ -46,13 +46,12 @@ export default {
       this.currentForm = form;
     },
     onLoginSubmit(formData) {
-      // this.$auth.loginWith('local', {
-      //   data: { ...formData },
-      // });
-      this.$axios.post('http://185.113.134.108/api/Account/Login', {
-        login: 'admin228',
-        password: 'Nekorytaylor123',
-      });
+      this.$auth
+        .loginWith('local', {
+          data: { ...formData },
+        })
+        .then(() => alert('success'))
+        .catch((e) => console.log(e));
     },
   },
 };
