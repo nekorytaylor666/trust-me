@@ -51,7 +51,7 @@ export default {
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
-    baseUrl: 'http://185.113.134.108/api',
+    baseURL: 'http://185.113.134.108/api',
   },
   router: {
     // middleware: ['auth'],
@@ -78,7 +78,7 @@ export default {
         },
         endpoints: {
           login: {
-            url: 'http://185.113.134.108/api/Account/Login',
+            url: '/Account/Login',
             method: 'post',
           },
           register: {
@@ -90,7 +90,7 @@ export default {
             method: 'post',
           },
           user: {
-            url: 'http://185.113.134.108/api/Account/GetUser',
+            url: '/Account/GetUser',
             method: 'get',
           },
         },

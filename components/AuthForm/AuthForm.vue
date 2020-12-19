@@ -22,8 +22,16 @@
         Регистрация
       </button>
     </div>
-    <register-form v-if="currentForm === 'registration'" />
-    <login-form v-if="currentForm === 'login'" :on-submit="onLoginSubmit" />
+    <register-form
+      v-if="currentForm === 'registration'"
+      :on-submit="onRegistrationSubmit"
+      @cancel="cancelForm"
+    />
+    <login-form
+      v-if="currentForm === 'login'"
+      :on-submit="onLoginSubmit"
+      @cancel="cancelForm"
+    />
     <div v-if="error" class="mb-4">
       <p class="text-red-500 text-center">{{ error }}</p>
     </div>
@@ -48,6 +56,27 @@ export default {
   methods: {
     changeForm(form) {
       this.currentForm = form;
+    },
+    cancelForm() {
+      this.$emit('close');
+    },
+    async onRegistrationSubmit(formData) {
+      try {
+        console.log(formData);
+        const res = await this.$axios.$post('/Account/Register', {
+          login: formData.email,
+          firstName: formData.firstName,
+          lastNume: formData.lastName,
+          phone: formData.phoneNumber,
+          email: formData.email,
+          password: formData.password,
+          typeUser: 0,
+        });
+        console.log(res);
+      } catch (error) {
+        this.error =
+          'Невозможно создать аккаунт. Попробуйте еще раз через пару минут.';
+      }
     },
     async onLoginSubmit(formData) {
       try {

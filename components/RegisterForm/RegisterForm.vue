@@ -2,13 +2,13 @@
   <form class="p-6 px-8 space-y-4" @submit.prevent="submitForm">
     <div>
       <tr-input
-        v-model.trim.lazy="$v.name.$model"
+        v-model.trim.lazy="$v.firstName.$model"
         :lable="'имя'"
-        :name="'name'"
+        :name="'firstName'"
         :placeholder="'Ваше имя'"
       />
       <div
-        v-if="!$v.name.required && $v.name.$dirty"
+        v-if="!$v.firstName.required && $v.firstName.$dirty"
         class="text-red-500 text-sm"
       >
         Обязательное поле
@@ -17,13 +17,13 @@
 
     <div>
       <tr-input
-        v-model.trim.lazy="$v.secondName.$model"
+        v-model.trim.lazy="$v.lastName.$model"
         :lable="'фамилия'"
-        :name="'secondName'"
+        :name="'lastName'"
         :placeholder="'Ваша фамилия'"
       />
       <div
-        v-if="!$v.secondName.required && $v.secondName.$dirty"
+        v-if="!$v.lastName.required && $v.lastName.$dirty"
         class="text-red-500 text-sm"
       >
         Обязательное поле
@@ -80,13 +80,13 @@
       </p>
     </div>
     <div>
-      <div class="grid gap-4 grid-cols-2">
-        <tr-input
-          v-model.trim.lazy="$v.phoneNumber.$model"
-          :lable="'телефон'"
-          :name="'phonenumber'"
-          :placeholder="'Номер телефона'"
-        />
+      <tr-input
+        v-model.trim.lazy="$v.phoneNumber.$model"
+        :lable="'телефон'"
+        :name="'phonenumber'"
+        :placeholder="'Номер телефона'"
+      />
+      <!-- <div class="grid gap-4 grid-cols-2">
 
         <button
           class="bg-accentGray text-white p-4 w-full rounded-lg font-light"
@@ -99,9 +99,9 @@
         class="text-red-500 text-sm"
       >
         Обязательное поле
-      </div>
+      </div> -->
     </div>
-
+    <!--
     <div>
       <tr-input
         v-model.trim.lazy="$v.code.$model"
@@ -115,7 +115,7 @@
       >
         Принимаются только числа
       </div>
-    </div>
+    </div> -->
     <div class="flex items-center space-x-4">
       <input id="licence" type="checkbox" name="licence" checked />
       <p class="text-sm text-accentGray w-2/3">
@@ -126,13 +126,14 @@
     <div class="grid gap-4 grid-cols-2">
       <button
         class="bg-lightgray border-gray-400 border-2 text-darkgray p-4 w-full rounded-lg font-light"
+        @click="cancelClick"
       >
         Отменить
       </button>
       <input
         value="Регистрация"
         type="submit"
-        class="bg-accentGray text-white p-4 w-full rounded-lg font-light"
+        class="bg-skyblue text-white p-4 w-full rounded-lg font-light"
       />
     </div>
   </form>
@@ -152,8 +153,8 @@ export default {
   },
   data() {
     return {
-      name: '',
-      secondName: '',
+      firstName: '',
+      lastName: '',
       email: '',
       password: '',
       phoneNumber: '',
@@ -163,10 +164,10 @@ export default {
     };
   },
   validations: {
-    name: {
+    firstName: {
       required,
     },
-    secondName: {
+    lastName: {
       required,
     },
     email: {
@@ -192,19 +193,21 @@ export default {
   },
   methods: {
     submitForm() {
-      console.log('submit!');
       this.$v.$touch();
       if (this.$v.$invalid) {
         this.submitStatus = 'ERROR';
       } else {
         this.onSubmit({
-          name: this.name,
+          firstName: this.firstName,
           password: this.password,
           email: this.email,
-          secondName: this.secondName,
+          lastName: this.lastName,
           phoneNumber: this.phoneNumber,
         });
       }
+    },
+    cancelClick() {
+      this.$emit('cancel');
     },
   },
 };
