@@ -22,7 +22,7 @@ export default {
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
   buildModules: [
     // https://go.nuxtjs.dev/eslint
-    // '@nuxtjs/eslint-module',
+    '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
   ],
@@ -73,8 +73,8 @@ export default {
           // type: 'Bearer'
         },
         user: {
-          property: 'user',
-          // autoFetch: true
+          property: false,
+          autoFetch: true,
         },
         endpoints: {
           login: {
@@ -90,7 +90,7 @@ export default {
             method: 'post',
           },
           user: {
-            url: '/Account/User',
+            url: 'http://185.113.134.108/api/Account/GetUser',
             method: 'get',
           },
         },

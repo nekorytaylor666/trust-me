@@ -121,7 +121,7 @@
               />
             </div>
           </div>
-          <div class="flex items-center space-x-8">
+          <div v-if="!$auth.loggedIn" class="flex items-center space-x-8">
             <button
               class="text-blue-500 underline"
               @click="signupButtonClick('registration')"
@@ -140,10 +140,18 @@
               <p>Войти</p>
             </button>
           </div>
+          <div v-else class="flex items-center space-x-8">
+            <p class="text-xl font-bold text-skyblue">
+              {{ user.firstName }}
+            </p>
+            <button class="text-blue-500 underline" @click="logoutClick">
+              Log out
+            </button>
+          </div>
         </div>
       </div>
     </div>
-    <modal />
+    <modal name="auth" />
   </nav>
 </template>
 
@@ -153,6 +161,7 @@ export default {
   data() {
     return {
       sticky: 0,
+      user: this.$store.state.auth.user,
     };
   },
   created() {
@@ -171,6 +180,9 @@ export default {
     this.sticky = navbar.offsetTop;
   },
   methods: {
+    logoutClick() {
+      this.$auth.logout();
+    },
     signupButtonClick(formType) {
       this.$modal.show(
         AuthForm,

@@ -59,8 +59,8 @@ export default {
   },
   data() {
     return {
-      login: 'admin228',
-      password: 'Nekorytaylor123',
+      login: '',
+      password: '',
     };
   },
   validations: {

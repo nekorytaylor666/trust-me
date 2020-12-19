@@ -24,6 +24,9 @@
     </div>
     <register-form v-if="currentForm === 'registration'" />
     <login-form v-if="currentForm === 'login'" :on-submit="onLoginSubmit" />
+    <div v-if="error" class="mb-4">
+      <p class="text-red-500 text-center">{{ error }}</p>
+    </div>
   </div>
 </template>
 
@@ -38,6 +41,7 @@ export default {
   data() {
     return {
       currentForm: this.initialForm,
+      error: '',
     };
   },
 
@@ -45,13 +49,16 @@ export default {
     changeForm(form) {
       this.currentForm = form;
     },
-    onLoginSubmit(formData) {
-      this.$auth
-        .loginWith('local', {
+    async onLoginSubmit(formData) {
+      try {
+        await this.$auth.loginWith('local', {
           data: { ...formData },
-        })
-        .then(() => alert('success'))
-        .catch((e) => console.log(e));
+        });
+
+        this.$emit('close');
+      } catch (error) {
+        this.error = 'Неправильный логин или пароль.';
+      }
     },
   },
 };
