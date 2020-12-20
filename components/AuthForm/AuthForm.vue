@@ -62,17 +62,19 @@ export default {
     },
     async onRegistrationSubmit(formData) {
       try {
-        console.log(formData);
-        const res = await this.$axios.$post('/Account/Register', {
+        await this.$axios.$post('/Account/Register', {
           login: formData.email,
           firstName: formData.firstName,
           lastNume: formData.lastName,
           phone: formData.phoneNumber,
           email: formData.email,
           password: formData.password,
-          typeUser: 0,
+          typeUser: 1,
         });
-        console.log(res);
+        await this.$auth.loginWith('local', {
+          data: { login: formData.email, password: formData.password },
+        });
+        this.$emit('close');
       } catch (error) {
         this.error =
           'Невозможно создать аккаунт. Попробуйте еще раз через пару минут.';
