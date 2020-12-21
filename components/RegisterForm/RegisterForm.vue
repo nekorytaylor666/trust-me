@@ -80,14 +80,13 @@
       </p>
     </div>
     <div>
-      <tr-input
-        v-model.trim.lazy="$v.phoneNumber.$model"
-        :lable="'телефон'"
-        :name="'phonenumber'"
-        :placeholder="'Номер телефона'"
-      />
-      <!-- <div class="grid gap-4 grid-cols-2">
-
+      <div class="grid gap-4 grid-cols-2">
+        <tr-input
+          v-model.trim.lazy="$v.phoneNumber.$model"
+          :lable="'телефон'"
+          :name="'phonenumber'"
+          :placeholder="'Номер телефона'"
+        />
         <button
           class="bg-accentGray text-white p-4 w-full rounded-lg font-light"
         >
@@ -99,9 +98,9 @@
         class="text-red-500 text-sm"
       >
         Обязательное поле
-      </div> -->
+      </div>
     </div>
-    <!--
+
     <div>
       <tr-input
         v-model.trim.lazy="$v.code.$model"
@@ -115,7 +114,7 @@
       >
         Принимаются только числа
       </div>
-    </div> -->
+    </div>
     <div class="flex items-center space-x-4">
       <input id="licence" type="checkbox" name="licence" checked />
       <p class="text-sm text-accentGray w-2/3">

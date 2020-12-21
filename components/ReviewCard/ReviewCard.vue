@@ -1,7 +1,10 @@
 <template>
   <Pane
     ><div class="flex-col">
-      <div class="py-4 px-6 bg-skyblue rounded-b-none rounded-lg text-white">
+      <div
+        v-if="companyLink"
+        class="py-4 px-6 bg-skyblue rounded-b-none rounded-lg text-white"
+      >
         <div class="flex justify-between items-center space-x-4">
           <div class="flex space-x-6 items-center">
             <div class="p-4 rounded-2xl bg-lightgray">
@@ -23,7 +26,7 @@
           </NuxtLink>
         </div>
       </div>
-      <div class="px-4 py-8">
+      <div class="px-4 py-4">
         <div class="review-card-grid">
           <div class="border-r-2 border-lightgray p-2 pr-10">
             <div class="flex items-center space-x-6 mb-4">
@@ -202,7 +205,7 @@
             />
           </div>
         </button>
-        <div class="mt-6 h-16 flex items-center space-x-6">
+        <div v-if="addComment" class="mt-6 h-16 flex items-center space-x-6">
           <img
             class="w-16 h-full rounded-lg object-cover"
             src="~/assets/gallery-test.jpg"
@@ -225,7 +228,18 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    companyLink: {
+      type: Boolean,
+      default: true,
+    },
+    addComment: {
+      type: Boolean,
+      default: true,
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
