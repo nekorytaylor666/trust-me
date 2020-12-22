@@ -82,6 +82,7 @@ export default {
     },
     async onRegistrationSubmit(formData) {
       console.log('on regis');
+
       try {
         this.loading = true;
         console.log('verifuing code with', formData);
@@ -90,18 +91,14 @@ export default {
           code: formData.code,
         });
         console.log(res);
-        setTimeout(async () => {
-          try {
-            this.loading = false;
-            const loginRes = await this.$auth.loginWith('local', {
-              data: { login: formData.email, password: formData.password },
-            });
-            console.log(loginRes);
-            this.$emit('close');
-          } catch (error) {
-            console.log(error);
-          }
-        }, 1000);
+        this.loading = false;
+        const loginRes = await this.$auth.loginWith('local', {
+          data: { login: formData.email, password: formData.password },
+        });
+        console.log(formData.email, formData.password);
+
+        console.log(loginRes);
+        this.$emit('close');
       } catch (error) {
         console.log(error);
         this.error =

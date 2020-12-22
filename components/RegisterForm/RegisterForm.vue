@@ -259,6 +259,10 @@ export default {
         this.onSubmit({
           phoneNumber: this.phoneNumber,
           code: this.code,
+          firstName: this.firstName,
+          password: this.password,
+          email: this.email,
+          lastName: this.lastName,
         });
       }
     },
