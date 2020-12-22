@@ -33,6 +33,7 @@
       :on-submit="onLoginSubmit"
       @cancel="cancelForm"
     />
+    <p v-if="loading">Loading...</p>
     <div v-if="error" class="mb-4">
       <p class="text-red-500 text-center">{{ error }}</p>
     </div>
@@ -90,18 +91,17 @@ export default {
         });
         console.log(res);
         setTimeout(async () => {
-          this.loading = false;
-          const loginRes = await this.$auth.loginWith('local', {
-            data: { login: formData.email, password: formData.password },
-          });
-          console.log(loginRes);
-        }, 500);
-        const loginRes = await this.$auth.loginWith('local', {
-          data: { login: formData.email, password: formData.password },
-        });
-        console.log(loginRes);
-
-        this.$emit('close');
+          try {
+            this.loading = false;
+            const loginRes = await this.$auth.loginWith('local', {
+              data: { login: formData.email, password: formData.password },
+            });
+            console.log(loginRes);
+            this.$emit('close');
+          } catch (error) {
+            console.log(error);
+          }
+        }, 1000);
       } catch (error) {
         console.log(error);
         this.error =
