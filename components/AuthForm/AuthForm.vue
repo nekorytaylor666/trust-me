@@ -51,6 +51,7 @@ export default {
     return {
       currentForm: this.initialForm,
       error: '',
+      loading: false,
     };
   },
 
@@ -81,12 +82,20 @@ export default {
     async onRegistrationSubmit(formData) {
       console.log('on regis');
       try {
+        this.loading = true;
         console.log('verifuing code with', formData);
         const res = await this.$axios.$post('/Account/VerifyPhone', {
           phone: formData.phoneNumber,
           code: formData.code,
         });
         console.log(res);
+        setTimeout(async () => {
+          this.loading = false;
+          const loginRes = await this.$auth.loginWith('local', {
+            data: { login: formData.email, password: formData.password },
+          });
+          console.log(loginRes);
+        }, 500);
         const loginRes = await this.$auth.loginWith('local', {
           data: { login: formData.email, password: formData.password },
         });
