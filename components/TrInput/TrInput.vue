@@ -23,7 +23,13 @@ export default {
   props: {
     name: { type: String, required: true },
     label: { type: String, default: '' },
-    icon: { type: Array, required: false },
+    icon: {
+      type: Array,
+      required: false,
+      default() {
+        return ['', ''];
+      },
+    },
     placeholder: { type: String, default: '' },
     type: { type: String, default: 'text' },
     value: { type: String, default: '' },

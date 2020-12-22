@@ -9,7 +9,7 @@
         :for="category.name + index"
         :class="` transition ease-in-out duration-200 ${
           category.name === currentCategory
-            ? 'border-b-2 border-skyblue'
+            ? 'border-b-2 border-deepPurple'
             : 'border-b-2 border-lightgray'
         } `"
       >

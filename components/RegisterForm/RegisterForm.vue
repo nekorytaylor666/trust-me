@@ -102,7 +102,7 @@
         <button
           :disabled="codeSent"
           :class="`text-white p-4 w-full rounded-lg font-light ${
-            isPhoneInputed ? 'bg-skyblue' : 'bg-accentGray'
+            isPhoneInputed ? 'bg-deepPurple' : 'bg-accentGray'
           }`"
           @click.prevent="sendCode"
         >
@@ -114,6 +114,12 @@
         class="text-red-500 text-sm"
       >
         Обязательное поле
+      </div>
+      <div
+        v-if="!$v.phoneNumber.minLength && $v.phoneNumber.$dirty"
+        class="text-red-500 text-sm"
+      >
+        Невалидный номер телефона
       </div>
     </div>
 
@@ -140,12 +146,18 @@
       >
         Принимаются только числа
       </div>
+      <div
+        v-if="!$v.code.minLength && $v.code.$dirty"
+        class="text-red-500 text-sm"
+      >
+        Минимум 4 знака
+      </div>
     </div>
     <div class="flex items-center space-x-4">
       <input id="licence" type="checkbox" name="licence" checked />
       <p class="text-sm text-accentGray w-2/3">
         Продолжая регистрацию я принимаю
-        <a href="/" class="text-skyblue">пользовательское соглашение</a>
+        <a href="/" class="text-deepPurple">пользовательское соглашение</a>
       </p>
     </div>
 
@@ -159,7 +171,7 @@
       <button
         value="Регистрация"
         :class="`text-white p-4 w-full rounded-lg font-light ${
-          isCodeInputed ? 'bg-skyblue' : 'bg-accentGray'
+          isCodeInputed ? 'bg-deepPurple' : 'bg-accentGray'
         }`"
         @click.prevent="submitForm"
       >
@@ -230,9 +242,11 @@ export default {
     },
     phoneNumber: {
       required,
+      minLength: minLength(11),
     },
     code: {
       numeric,
+      minLength: minLength(4),
     },
   },
   methods: {

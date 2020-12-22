@@ -4,7 +4,7 @@
       <button
         :class="`outline-none focus:outline-none py-4 px-6 border-b-2  text-center ${
           currentForm === 'login'
-            ? 'text-skyblue border-skyblue'
+            ? 'text-deepPurple border-deepPurple'
             : 'border-lightgray text-gray-500'
         }`"
         @click="changeForm('login')"
@@ -14,7 +14,7 @@
       <button
         :class="`outline-none focus:outline-none py-4 px-6 border-b-2  text-center ${
           currentForm === 'registration'
-            ? 'text-skyblue border-skyblue'
+            ? 'text-deepPurple border-deepPurple'
             : 'border-lightgray text-gray-500'
         }`"
         @click="changeForm('registration')"
@@ -87,9 +87,11 @@ export default {
           code: formData.code,
         });
         console.log(res);
-        await this.$auth.loginWith('local', {
+        const loginRes = await this.$auth.loginWith('local', {
           data: { login: formData.email, password: formData.password },
         });
+        console.log(loginRes);
+
         this.$emit('close');
       } catch (error) {
         console.log(error);

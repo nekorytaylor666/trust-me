@@ -40,7 +40,7 @@
       </button>
       <input
         type="submit"
-        class="bg-skyblue text-white p-4 w-full rounded-lg font-light"
+        class="bg-deepPurple text-white p-4 w-full rounded-lg font-light"
         value="Войти"
       />
     </div>

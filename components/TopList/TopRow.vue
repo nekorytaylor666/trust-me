@@ -2,7 +2,7 @@
   <li class="toplist-row py-4 divide-x-2 divide-lightgray">
     <p
       :class="`text-center text-xl flex items-center justify-center font-semibold px-4 ${
-        highlightedIndex ? 'text-skyblue' : 'text-darkgray'
+        highlightedIndex ? 'text-deepPurple' : 'text-darkgray'
       }`"
     >
       {{ index }}
@@ -25,7 +25,7 @@
     </div>
     <div class="flex justify-center items-center px-4">
       <div class="flex items-center space-x-2">
-        <p class="text-center text-skyblue text-xl font-semibold">
+        <p class="text-center text-deepPurple text-xl font-semibold">
           {{ rating }}
         </p>
         <font-awesome-icon

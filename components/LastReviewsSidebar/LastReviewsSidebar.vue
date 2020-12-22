@@ -29,7 +29,7 @@
               <p class="text-sm">ТОО Apple Inc.</p>
             </div>
             <div class="flex items-center space-x-2 w-1/12 justify-end">
-              <p class="text-center text-skyblue text-xl font-semibold">3</p>
+              <p class="text-center text-deepPurple text-xl font-semibold">3</p>
               <font-awesome-icon
                 class="text-accentYellow"
                 :icon="['fas', 'star']"

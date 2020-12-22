@@ -79,7 +79,7 @@
             class="flex items-center justify-center rounded-2xl text-sm bg-white text-darkgray py-2 px-4 space-x-3"
           >
             <font-awesome-icon
-              class="text-xl text-blue-500"
+              class="text-xl text-deepPurple"
               :icon="['fas', 'life-ring']"
             />
             <p>Предложения / поддержка</p>
@@ -109,7 +109,7 @@
               class="flex items-center bg-lightgray space-x-3 py-2 px-4 rounded-xl ml-6"
             >
               <font-awesome-icon
-                class="text-xl text-blue-500"
+                class="text-xl text-deepPurple"
                 :icon="['fas', 'search']"
               />
               <input
@@ -123,28 +123,28 @@
           </div>
           <div v-if="!$auth.loggedIn" class="flex items-center space-x-8">
             <button
-              class="text-blue-500 underline"
+              class="text-deepPurple underline"
               @click="signupButtonClick('registration')"
             >
               Регистрация
             </button>
             <button
-              class="border-blue-500 border-2 rounded-xl py-2 px-4 flex items-center space-x-2 text-blue-500"
+              class="border-deepPurple border-2 rounded-xl py-2 px-4 flex items-center space-x-2 text-deepPurple"
               href="#"
               @click="signupButtonClick('login')"
             >
               <font-awesome-icon
-                class="text-xl text-blue-500"
+                class="text-xl text-deepPurple"
                 :icon="['fas', 'user']"
               />
               <p>Войти</p>
             </button>
           </div>
           <div v-else class="flex items-center space-x-8">
-            <p class="text-xl font-bold text-skyblue">
+            <p class="text-xl font-bold text-deepPurple">
               {{ user.firstName }}
             </p>
-            <button class="text-blue-500 underline" @click="logoutClick">
+            <button class="text-deepPurple underline" @click="logoutClick">
               Log out
             </button>
           </div>
@@ -161,9 +161,11 @@ export default {
   data() {
     return {
       sticky: 0,
-      user: this.$store.state.auth.user,
+      user:
+        this.$store.state.auth.user === null ? {} : this.$store.state.auth.user,
     };
   },
+
   created() {
     if (process.client) {
       // eslint-disable-next-line nuxt/no-globals-in-created
@@ -176,8 +178,7 @@ export default {
   mounted() {
     const navbar = document.getElementById('navbar');
     // init a offset y to sticky variable
-
-    this.sticky = navbar.offsetTop;
+    this.user = this.sticky = navbar.offsetTop;
   },
   methods: {
     logoutClick() {
@@ -235,7 +236,7 @@ export default {
 
 .nuxt-link-active {
   .link-container {
-    background-color: #0085ff;
+    @apply bg-deepPurple;
     color: white;
     .link-content {
       border: none;
@@ -244,7 +245,7 @@ export default {
 }
 .nuxt-link-exact-active {
   .link-container {
-    background-color: #0085ff;
+    @apply bg-deepPurple;
     color: white;
     .link-content {
       border: none;

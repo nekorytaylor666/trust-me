@@ -3,7 +3,7 @@
     ><div class="flex-col">
       <div
         v-if="companyLink"
-        class="py-4 px-6 bg-skyblue rounded-b-none rounded-lg text-white"
+        class="py-4 px-6 bg-deepPurple rounded-b-none rounded-lg text-white"
       >
         <div class="flex justify-between items-center space-x-4">
           <div class="flex space-x-6 items-center">
@@ -42,7 +42,7 @@
             </div>
             <div class="mb-8">
               <p class="text-lg">
-                Отзывов: <span class="text-skyblue">17</span>
+                Отзывов: <span class="text-deepPurple">17</span>
               </p>
               <p class="text-lg">
                 Репутация: <span class="text-green-500">+1500</span>
@@ -83,7 +83,7 @@
                 </div>
               </div>
               <p class="text-md">
-                11.11.2020 / <span class="text-skyblue">18:21</span>
+                11.11.2020 / <span class="text-deepPurple">18:21</span>
               </p>
               <div class="flex items-center space-x-4">
                 <div
@@ -153,22 +153,22 @@
                 />
               </div>
               <div class="flex mt-6 items-center space-x-6">
-                <div class="text-skyblue flex flex-col items-center">
+                <div class="text-deepPurple flex flex-col items-center">
                   <button
                     value="Ответить"
-                    class="flex items-center py-2 h-12 px-4 rounded-xl font-medium border-2 border-skyblue space-x-3 text-skyblue"
+                    class="flex items-center py-2 h-12 px-4 rounded-xl font-medium border-2 border-deepPurple space-x-3 text-deepPurple"
                   >
                     <p>Ответить</p>
                     <font-awesome-icon :icon="['fas', 'comment']" />
                   </button>
                   <p>10К коментариев</p>
                 </div>
-                <div class="text-skyblue flex flex-col items-center">
+                <div class="text-deepPurple flex flex-col items-center">
                   <button
-                    class="border-2 w-12 h-12 flex items-center justify-center border-skyblue rounded-lg bg-white"
+                    class="border-2 w-12 h-12 flex items-center justify-center border-deepPurple rounded-lg bg-white"
                   >
                     <font-awesome-icon
-                      class="text-skyblue text-xl"
+                      class="text-deepPurple text-xl"
                       :icon="['fas', 'thumbs-up']"
                     />
                   </button>

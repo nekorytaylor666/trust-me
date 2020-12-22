@@ -13,6 +13,7 @@ module.exports = {
         skyblue: '#0085FF',
         accentYellow: '#FCC129',
         accentGray: '#A0A0A0',
+        deepPurple: '#7B4DC6',
       },
     },
   },
