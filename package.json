@@ -23,6 +23,7 @@
     "nuxt-fontawesome": "^0.4.0",
     "sass": "^1.30.0",
     "sass-loader": "^10.1.0",
+    "v-mask": "^2.2.3",
     "vue-js-modal": "1.3.34",
     "vuelidate": "^0.7.6"
   },

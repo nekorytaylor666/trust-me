@@ -14,7 +14,11 @@ export default {
   css: ['~layouts/global.css'],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: ['~/plugins/vue-modal.js', '~/plugins/vuelidate.js'],
+  plugins: [
+    '~/plugins/vue-modal.js',
+    '~/plugins/vuelidate.js',
+    '~/plugins/vue-mask.js',
+  ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,

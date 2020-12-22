@@ -25,6 +25,7 @@
     <register-form
       v-if="currentForm === 'registration'"
       :on-submit="onRegistrationSubmit"
+      :on-code-send="onSendCodeRegistration"
       @cancel="cancelForm"
     />
     <login-form
@@ -60,8 +61,9 @@ export default {
     cancelForm() {
       this.$emit('close');
     },
-    async onRegistrationSubmit(formData) {
+    async onSendCodeRegistration(formData) {
       try {
+        console.log('sent code for user', formData.email, formData.phoneNumber);
         await this.$axios.$post('/Account/Register', {
           login: formData.email,
           firstName: formData.firstName,
@@ -71,11 +73,26 @@ export default {
           password: formData.password,
           typeUser: 1,
         });
+      } catch (error) {
+        this.error =
+          'Невозможно создать аккаунт. Попробуйте еще раз через пару минут.';
+      }
+    },
+    async onRegistrationSubmit(formData) {
+      console.log('on regis');
+      try {
+        console.log('verifuing code with', formData);
+        const res = await this.$axios.$post('/Account/VerifyPhone', {
+          phone: formData.phoneNumber,
+          code: formData.code,
+        });
+        console.log(res);
         await this.$auth.loginWith('local', {
           data: { login: formData.email, password: formData.password },
         });
         this.$emit('close');
       } catch (error) {
+        console.log(error);
         this.error =
           'Невозможно создать аккаунт. Попробуйте еще раз через пару минут.';
       }

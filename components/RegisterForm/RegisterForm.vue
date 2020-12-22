@@ -1,5 +1,5 @@
 <template>
-  <form class="p-6 px-8 space-y-4" @submit.prevent="submitForm">
+  <form class="p-6 px-8 space-y-4">
     <div>
       <tr-input
         v-model.trim.lazy="$v.firstName.$model"
@@ -81,14 +81,30 @@
     </div>
     <div>
       <div class="grid gap-4 grid-cols-2">
-        <tr-input
+        <!-- <tr-input
           v-model.trim.lazy="$v.phoneNumber.$model"
           :lable="'телефон'"
           :name="'phonenumber'"
           :placeholder="'Номер телефона'"
-        />
+        /> -->
+        <div
+          class="p-4 bg-lightgray text-accentGray flex items-center space-x-3 rounded-lg"
+        >
+          <input
+            v-model="$v.phoneNumber.$model"
+            v-mask="'7##########'"
+            class="bg-transparent outline-none w-full"
+            placeholder="Номер телефона"
+            type="text"
+          />
+        </div>
+
         <button
-          class="bg-accentGray text-white p-4 w-full rounded-lg font-light"
+          :disabled="codeSent"
+          :class="`text-white p-4 w-full rounded-lg font-light ${
+            isPhoneInputed ? 'bg-skyblue' : 'bg-accentGray'
+          }`"
+          @click.prevent="sendCode"
         >
           Получить код
         </button>
@@ -102,12 +118,22 @@
     </div>
 
     <div>
-      <tr-input
+      <!-- <tr-input
         v-model.trim.lazy="$v.code.$model"
         :name="'code'"
         :placeholder="'Введите 4-х значный код сюда'"
-      />
-
+      /> -->
+      <div
+        class="p-4 bg-lightgray text-accentGray flex items-center space-x-3 rounded-lg"
+      >
+        <input
+          v-model="$v.code.$model"
+          v-mask="'####'"
+          class="bg-transparent outline-none w-full text-center"
+          placeholder="Введите 4-х значный код сюда"
+          type="text"
+        />
+      </div>
       <div
         v-if="!$v.code.numeric && $v.code.$dirty"
         class="text-red-500 text-sm"
@@ -122,6 +148,7 @@
         <a href="/" class="text-skyblue">пользовательское соглашение</a>
       </p>
     </div>
+
     <div class="grid gap-4 grid-cols-2">
       <button
         class="bg-lightgray border-gray-400 border-2 text-darkgray p-4 w-full rounded-lg font-light"
@@ -129,11 +156,15 @@
       >
         Отменить
       </button>
-      <input
+      <button
         value="Регистрация"
-        type="submit"
-        class="bg-skyblue text-white p-4 w-full rounded-lg font-light"
-      />
+        :class="`text-white p-4 w-full rounded-lg font-light ${
+          isCodeInputed ? 'bg-skyblue' : 'bg-accentGray'
+        }`"
+        @click.prevent="submitForm"
+      >
+        Регистрация
+      </button>
     </div>
   </form>
 </template>
@@ -149,6 +180,10 @@ export default {
       type: Function,
       default: () => {},
     },
+    onCodeSend: {
+      type: Function,
+      default: () => {},
+    },
   },
   data() {
     return {
@@ -157,10 +192,20 @@ export default {
       email: '',
       password: '',
       phoneNumber: '',
-      code: null,
+      code: '',
       codeSent: false,
       submitStatus: null,
     };
+  },
+  computed: {
+    isCodeInputed() {
+      const codeLength = this.code.length;
+      return codeLength === 4;
+    },
+    isPhoneInputed() {
+      const phoneLength = this.phoneNumber.length;
+      return phoneLength === 11;
+    },
   },
   validations: {
     firstName: {
@@ -196,7 +241,20 @@ export default {
       if (this.$v.$invalid) {
         this.submitStatus = 'ERROR';
       } else {
+        console.log('code is being verified');
         this.onSubmit({
+          phoneNumber: this.phoneNumber,
+          code: this.code,
+        });
+      }
+    },
+    sendCode() {
+      this.$v.$touch();
+      if (this.$v.$invalid) {
+        this.submitStatus = 'ERROR';
+      } else {
+        console.log('code sent');
+        this.onCodeSend({
           firstName: this.firstName,
           password: this.password,
           email: this.email,
