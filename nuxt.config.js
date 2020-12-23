@@ -1,5 +1,6 @@
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
+  mode: 'universal',
   head: {
     title: 'trustme',
     meta: [
@@ -11,7 +12,7 @@ export default {
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
-  css: ['~layouts/global.css'],
+  css: ['~/assets/css/global.css', '~/assets/css/tailwind.css'],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
@@ -29,6 +30,7 @@ export default {
     // '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
+    'nuxt-fontawesome',
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
@@ -36,23 +38,19 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     '@nuxtjs/auth-next',
-    [
-      'nuxt-fontawesome',
+  ],
+  fontawesome: {
+    imports: [
       {
-        imports: [
-          {
-            set: '@fortawesome/free-solid-svg-icons',
-            icons: ['fas'],
-          },
-          {
-            set: '@fortawesome/free-brands-svg-icons',
-            icons: ['fab'],
-          },
-        ],
+        set: '@fortawesome/free-solid-svg-icons',
+        icons: ['fas'],
+      },
+      {
+        set: '@fortawesome/free-brands-svg-icons',
+        icons: ['fab'],
       },
     ],
-  ],
-
+  },
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
     baseURL: 'http://185.113.134.108/api',
@@ -100,5 +98,14 @@ export default {
         },
       },
     },
+  },
+  tailwindcss: {
+    cssPath: '~assets/css/tailwind.css',
+    configPath: 'tailwind.config.js',
+    exposeConfig: false,
+    config: {},
+  },
+  purgeCSS: {
+    enabled: false,
   },
 };
