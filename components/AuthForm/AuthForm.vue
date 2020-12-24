@@ -65,7 +65,7 @@ export default {
     },
     async onSendCodeRegistration(formData) {
       try {
-        console.log('sent code for user', formData.email, formData.phoneNumber);
+        this.error = '';
         await this.$axios.$post('/Account/Register', {
           login: formData.email,
           firstName: formData.firstName,
@@ -81,32 +81,25 @@ export default {
       }
     },
     async onRegistrationSubmit(formData) {
-      console.log('on regis');
-
       try {
-        this.loading = true;
-        console.log('verifuing code with', formData);
-        const res = await this.$axios.$post('/Account/VerifyPhone', {
+        this.error = '';
+        await this.$axios.$post('/Account/VerifyPhone', {
           phone: formData.phoneNumber,
           code: formData.code,
         });
-        console.log(res);
-        this.loading = false;
-        const loginRes = await this.$auth.loginWith('local', {
+        await this.$auth.loginWith('local', {
           data: { login: formData.email, password: formData.password },
         });
-        console.log(formData.email, formData.password);
 
-        console.log(loginRes);
         this.$emit('close');
       } catch (error) {
-        console.log(error);
         this.error =
           'Невозможно создать аккаунт. Попробуйте еще раз через пару минут.';
       }
     },
     async onLoginSubmit(formData) {
       try {
+        this.error = '';
         await this.$auth.loginWith('local', {
           data: { ...formData },
         });

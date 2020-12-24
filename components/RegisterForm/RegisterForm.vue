@@ -92,22 +92,16 @@
         >
           <input
             v-model="$v.phoneNumber.$model"
-            v-mask="'7##########'"
+            v-mask="'7(###)###-##-##'"
             class="bg-transparent outline-none w-full"
             placeholder="Номер телефона"
             type="text"
           />
         </div>
 
-        <button
-          :disabled="codeSent"
-          :class="`text-white p-4 w-full rounded-lg font-light ${
-            isPhoneInputed ? 'bg-deepPurple' : 'bg-accentGray'
-          }`"
-          @click.prevent="sendCode"
-        >
+        <base-button :disabled="$v.$invalid" @click="sendCode">
           Получить код
-        </button>
+        </base-button>
       </div>
       <div
         v-if="!$v.phoneNumber.required && $v.phoneNumber.$dirty"
@@ -140,18 +134,6 @@
           type="text"
         />
       </div>
-      <div
-        v-if="!$v.code.numeric && $v.code.$dirty"
-        class="text-red-500 text-sm"
-      >
-        Принимаются только числа
-      </div>
-      <div
-        v-if="!$v.code.minLength && $v.code.$dirty"
-        class="text-red-500 text-sm"
-      >
-        Минимум 4 знака
-      </div>
     </div>
     <div class="flex items-center space-x-4">
       <input id="licence" type="checkbox" name="licence" checked />
@@ -168,25 +150,21 @@
       >
         Отменить
       </button>
-      <button
-        value="Регистрация"
-        :class="`text-white p-4 w-full rounded-lg font-light ${
-          isCodeInputed ? 'bg-deepPurple' : 'bg-accentGray'
-        }`"
-        @click.prevent="submitForm"
-      >
+
+      <base-button :disabled="!isFormAndCodeValid" @click="submitForm">
         Регистрация
-      </button>
+      </base-button>
     </div>
   </form>
 </template>
 
 <script>
-import { required, email, numeric, minLength } from 'vuelidate/lib/validators';
+import { required, email, minLength } from 'vuelidate/lib/validators';
+import BaseButton from '../BaseButton/BaseButton.vue';
 import TrInput from '../TrInput/TrInput.vue';
 
 export default {
-  components: { TrInput },
+  components: { TrInput, BaseButton },
   props: {
     onSubmit: {
       type: Function,
@@ -218,6 +196,12 @@ export default {
       const phoneLength = this.phoneNumber.length;
       return phoneLength === 11;
     },
+    isFormAndCodeValid() {
+      const isCodeInputed = this.isCodeInputed;
+      const isFormInvalid = this.$v.$invalid;
+      console.log(!isFormInvalid && isCodeInputed);
+      return !isFormInvalid && isCodeInputed;
+    },
   },
   validations: {
     firstName: {
@@ -244,10 +228,7 @@ export default {
       required,
       minLength: minLength(11),
     },
-    code: {
-      numeric,
-      minLength: minLength(4),
-    },
+    code: {},
   },
   methods: {
     submitForm() {
@@ -267,17 +248,38 @@ export default {
       }
     },
     sendCode() {
+      const retrievePhoneFromMaskedPhone = () => {
+        const regex = /\d/gm;
+        const str = `7(778)397-39-90`;
+        let m;
+        const res = [];
+        while ((m = regex.exec(str)) !== null) {
+          // This is necessary to avoid infinite loops with zero-width matches
+          if (m.index === regex.lastIndex) {
+            regex.lastIndex++;
+          }
+
+          // The result can be accessed through the `m`-variable.
+          m.forEach((match, groupIndex) => {
+            console.log(`Found match, group ${groupIndex}: ${match}`);
+            res.push(match);
+          });
+        }
+        return res.join('');
+      };
       this.$v.$touch();
       if (this.$v.$invalid) {
         this.submitStatus = 'ERROR';
       } else {
-        console.log('code sent');
+        const actualPhoneNumber = retrievePhoneFromMaskedPhone(
+          this.phoneNumber
+        );
         this.onCodeSend({
           firstName: this.firstName,
           password: this.password,
           email: this.email,
           lastName: this.lastName,
-          phoneNumber: this.phoneNumber,
+          phoneNumber: actualPhoneNumber,
         });
       }
     },
