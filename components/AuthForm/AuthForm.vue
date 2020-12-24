@@ -76,25 +76,23 @@ export default {
           typeUser: 1,
         });
       } catch (error) {
-        this.error =
-          'Невозможно создать аккаунт. Попробуйте еще раз через пару минут.';
+        this.error = error.response.data.Error;
       }
     },
     async onRegistrationSubmit(formData) {
       try {
         this.error = '';
-        await this.$axios.$post('/Account/VerifyPhone', {
+        const res = await this.$axios.$post('/Account/VerifyPhone', {
           phone: formData.phoneNumber,
           code: formData.code,
         });
-        await this.$auth.loginWith('local', {
+        const resLogin = await this.$auth.loginWith('local', {
           data: { login: formData.email, password: formData.password },
         });
-
+        console.log(res, resLogin);
         this.$emit('close');
       } catch (error) {
-        this.error =
-          'Невозможно создать аккаунт. Попробуйте еще раз через пару минут.';
+        this.error = 'Неверный код';
       }
     },
     async onLoginSubmit(formData) {
@@ -106,7 +104,7 @@ export default {
 
         this.$emit('close');
       } catch (error) {
-        this.error = 'Неправильный логин или пароль.';
+        this.error = 'Неправильный логин или пароль';
       }
     },
   },

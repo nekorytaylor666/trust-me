@@ -64,13 +64,9 @@
         Обязательное поле
       </div>
       <div
-        v-if="!$v.password.minLength && $v.password.$dirty"
-        class="text-red-500 text-sm"
-      >
-        Минимум 8 знаков
-      </div>
-      <div
-        v-if="!$v.password.valid && $v.password.$dirty"
+        v-if="
+          (!$v.password.valid || !$v.password.minLength) && $v.password.$dirty
+        "
         class="text-red-500 text-sm"
       >
         Минимум 8 знаков, минимум 1 с большим регистром
