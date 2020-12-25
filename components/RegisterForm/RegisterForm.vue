@@ -246,7 +246,7 @@ export default {
     sendCode() {
       const retrievePhoneFromMaskedPhone = () => {
         const regex = /\d/gm;
-        const str = `7(778)397-39-90`;
+        const str = this.phoneNumber;
         let m;
         const res = [];
         while ((m = regex.exec(str)) !== null) {
