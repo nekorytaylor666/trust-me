@@ -22,7 +22,7 @@
         Регистрация
       </button>
     </div>
-    <register-form
+    <new-register-form
       v-if="currentForm === 'registration'"
       :on-submit="onRegistrationSubmit"
       :on-code-send="onSendCodeRegistration"
@@ -42,9 +42,9 @@
 
 <script>
 import LoginForm from '../LoginForm/LoginForm.vue';
-import RegisterForm from '../RegisterForm/RegisterForm.vue';
+import NewRegisterForm from '../RegisterForm/NewRegisterForm.vue';
 export default {
-  components: { RegisterForm, LoginForm },
+  components: { NewRegisterForm, LoginForm },
   props: {
     initialForm: { type: String, default: 'registration' },
   },

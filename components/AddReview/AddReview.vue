@@ -110,19 +110,15 @@
             </div>
             <div>
               <fieldset class="flex space-x-2">
-                <tr-input
+                <input
+                  id="Plus"
                   v-model="features.currentPlus"
-                  :name="pluses"
-                  class="flex-grow"
-                  :placeholder="'Введите плюсы компании'"
+                  class="px-4 p-2 bg-lightgray text-accentGray flex items-center w-full rounded-lg"
+                  type="text"
+                  name="Plus"
+                  placeholder="Введите плюсы компании"
                   @keyup.enter="addFeature('pluses')"
                 />
-                <button
-                  class="p-4 bg-deepPurple rounded-md text-white"
-                  @click.prevent="addFeature('pluses')"
-                >
-                  Add
-                </button>
               </fieldset>
 
               <ul class="flex flex-wrap mt-4">
@@ -148,19 +144,22 @@
             </div>
             <div>
               <fieldset class="flex space-x-2">
-                <tr-input
+                <!-- <tr-input
                   v-model="features.currentMinus"
                   :name="minuses"
                   class="flex-grow"
                   :placeholder="'Введите минусы компании'"
                   @keyup.enter="addFeature('minuses')"
+                /> -->
+                <input
+                  id="minus"
+                  v-model="features.currentMinus"
+                  type="text"
+                  class="px-4 p-2 bg-lightgray text-accentGray flex items-center w-full rounded-lg"
+                  name="minus"
+                  placeholder="Введите минусы компании"
+                  @keyup.enter="addFeature('minuses')"
                 />
-                <button
-                  class="p-4 bg-deepPurple rounded-md text-white"
-                  @click.prevent="addFeature('minuses')"
-                >
-                  Add
-                </button>
               </fieldset>
               <ul class="flex flex-wrap mt-4">
                 <li
