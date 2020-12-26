@@ -174,6 +174,7 @@
               </ul>
             </div>
           </div>
+          <base-button>Отправить</base-button>
         </form>
       </div>
     </Pane>
@@ -181,10 +182,11 @@
 </template>
 
 <script>
+import BaseButton from '../BaseButton/BaseButton.vue';
 import StarRating from '../StarRating/StarRating.vue';
 import TrInput from '../TrInput/TrInput.vue';
 export default {
-  components: { TrInput, StarRating },
+  components: { TrInput, BaseButton, StarRating },
   data() {
     return {
       features: {

@@ -173,51 +173,53 @@ export default {
     code: {},
   },
   methods: {
+    retrievePhoneFromMaskedPhone(value) {
+      const regex = /\d/gm;
+      const str = value;
+      let m;
+      const res = [];
+      while ((m = regex.exec(str)) !== null) {
+        // This is necessary to avoid infinite loops with zero-width matches
+        if (m.index === regex.lastIndex) {
+          regex.lastIndex++;
+        }
+
+        // The result can be accessed through the `m`-variable.
+        m.forEach((match, groupIndex) => {
+          console.log(`Found match, group ${groupIndex}: ${match}`);
+          res.push(match);
+        });
+      }
+      return res.join('');
+    },
     submitForm() {
       this.$v.$touch();
       if (this.$v.$invalid) {
         this.submitStatus = 'ERROR';
       } else {
         console.log('code is being verified');
+        const actualPhoneNumber = this.retrievePhoneFromMaskedPhone(
+          this.phoneNumber
+        );
         this.onSubmit({
-          phoneNumber: this.phoneNumber,
+          phoneNumber: actualPhoneNumber,
           code: this.code,
           password: this.password,
         });
       }
     },
     sendCode() {
-      const retrievePhoneFromMaskedPhone = () => {
-        const regex = /\d/gm;
-        const str = this.phoneNumber;
-        let m;
-        const res = [];
-        while ((m = regex.exec(str)) !== null) {
-          // This is necessary to avoid infinite loops with zero-width matches
-          if (m.index === regex.lastIndex) {
-            regex.lastIndex++;
-          }
-
-          // The result can be accessed through the `m`-variable.
-          m.forEach((match, groupIndex) => {
-            console.log(`Found match, group ${groupIndex}: ${match}`);
-            res.push(match);
-          });
-        }
-        return res.join('');
-      };
       this.$v.$touch();
       if (this.$v.$invalid) {
         this.submitStatus = 'ERROR';
       } else {
-        const actualPhoneNumber = retrievePhoneFromMaskedPhone(
+        const actualPhoneNumber = this.retrievePhoneFromMaskedPhone(
           this.phoneNumber
         );
         this.onCodeSend({
           password: this.password,
           phoneNumber: actualPhoneNumber,
         });
-        this.codeSent = true;
       }
     },
     cancelClick() {

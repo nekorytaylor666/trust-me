@@ -1,7 +1,7 @@
 <template>
   <button
     :disabled="disabled"
-    :class="`text-white p-4 w-full rounded-lg font-light ${
+    :class="`text-white p-4 w-full rounded-lg ${
       disabled ? 'bg-accentGray' : 'bg-deepPurple'
     }`"
     @click.prevent="onClick"

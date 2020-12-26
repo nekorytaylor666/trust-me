@@ -139,7 +139,7 @@
       </p>
     </div>
 
-    <div class="grid gap-4 grid-cols-2">
+    <div class="grid gap-2 grid-cols-2">
       <button
         class="bg-lightgray border-gray-400 border-2 text-darkgray p-4 w-full rounded-lg font-light"
         @click="cancelClick"
@@ -244,9 +244,9 @@ export default {
       }
     },
     sendCode() {
-      const retrievePhoneFromMaskedPhone = () => {
+      const retrievePhoneFromMaskedPhone = (value) => {
         const regex = /\d/gm;
-        const str = this.phoneNumber;
+        const str = value;
         let m;
         const res = [];
         while ((m = regex.exec(str)) !== null) {

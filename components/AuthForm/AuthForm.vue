@@ -28,7 +28,7 @@
       :on-code-send="onSendCodeRegistration"
       @cancel="cancelForm"
     />
-    <login-form
+    <new-login-form
       v-if="currentForm === 'login'"
       :on-submit="onLoginSubmit"
       @cancel="cancelForm"
@@ -41,10 +41,10 @@
 </template>
 
 <script>
-import LoginForm from '../LoginForm/LoginForm.vue';
+import NewLoginForm from '../LoginForm/NewLoginForm.vue';
 import NewRegisterForm from '../RegisterForm/NewRegisterForm.vue';
 export default {
-  components: { NewRegisterForm, LoginForm },
+  components: { NewRegisterForm, NewLoginForm },
   props: {
     initialForm: { type: String, default: 'registration' },
   },
@@ -67,11 +67,7 @@ export default {
       try {
         this.error = '';
         await this.$axios.$post('/Account/Register', {
-          login: formData.email,
-          firstName: formData.firstName,
-          lastNume: formData.lastName,
           phone: formData.phoneNumber,
-          email: formData.email,
           password: formData.password,
           typeUser: 1,
         });
@@ -82,12 +78,13 @@ export default {
     async onRegistrationSubmit(formData) {
       try {
         this.error = '';
+        console.log(formData);
         const res = await this.$axios.$post('/Account/VerifyPhone', {
           phone: formData.phoneNumber,
           code: formData.code,
         });
         const resLogin = await this.$auth.loginWith('local', {
-          data: { login: formData.email, password: formData.password },
+          data: { phone: formData.phoneNumber, password: formData.password },
         });
         console.log(res, resLogin);
         this.$emit('close');
