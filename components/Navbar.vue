@@ -142,7 +142,7 @@
           </div>
           <div v-else class="flex items-center space-x-8">
             <p class="text-xl font-bold text-deepPurple">
-              {{ user.firstName }}
+              {{ user.name }}
             </p>
             <button class="text-deepPurple underline" @click="logoutClick">
               Log out
@@ -161,8 +161,7 @@ export default {
   data() {
     return {
       sticky: 0,
-      user:
-        this.$store.state.auth.user === null ? {} : this.$store.state.auth.user,
+      user: this.$store.state.auth.user,
     };
   },
 
@@ -178,7 +177,10 @@ export default {
   mounted() {
     const navbar = document.getElementById('navbar');
     // init a offset y to sticky variable
-    this.user = this.sticky = navbar.offsetTop;
+    this.sticky = navbar.offsetTop;
+    console.log(this.$store.state.auth.user);
+    this.user = this.$auth.user;
+    console.log(this.$auth.strategy.token.get());
   },
   methods: {
     logoutClick() {

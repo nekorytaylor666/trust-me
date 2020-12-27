@@ -97,6 +97,18 @@ export default {
           },
         },
       },
+      facebook: {
+        endpoints: {
+          userInfo:
+            'https://graph.facebook.com/v6.0/me?fields=id,name,picture{url}',
+        },
+        clientId: '3413817302069694',
+        scope: ['public_profile', 'email'],
+      },
+      google: {
+        clientId:
+          '282480388228-qegfu2a7k0ocgikhmgehiuubcs20r5hd.apps.googleusercontent.com',
+      },
     },
   },
   tailwindcss: {

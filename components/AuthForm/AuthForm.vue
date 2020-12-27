@@ -37,14 +37,20 @@
     <div v-if="error" class="mb-4">
       <p class="text-red-500 text-center">{{ error }}</p>
     </div>
+    <div class="p-4 border-t-2 border-lightgray">
+      <social-login-button @click="onFacebookLogin"
+        >facebook</social-login-button
+      >
+    </div>
   </div>
 </template>
 
 <script>
 import NewLoginForm from '../LoginForm/NewLoginForm.vue';
 import NewRegisterForm from '../RegisterForm/NewRegisterForm.vue';
+import SocialLoginButton from '../SocialLoginButton/SocialLoginButton.vue';
 export default {
-  components: { NewRegisterForm, NewLoginForm },
+  components: { NewRegisterForm, NewLoginForm, SocialLoginButton },
   props: {
     initialForm: { type: String, default: 'registration' },
   },
@@ -62,6 +68,14 @@ export default {
     },
     cancelForm() {
       this.$emit('close');
+    },
+    async onFacebookLogin(formdata) {
+      const res = await this.$auth.loginWith('facebook');
+      console.log(res);
+    },
+    async onGoogleLogin(formdata) {
+      const res = await this.$auth.loginWith('google');
+      console.log(res);
     },
     async onSendCodeRegistration(formData) {
       try {
