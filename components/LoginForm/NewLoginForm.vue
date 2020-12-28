@@ -42,6 +42,20 @@
         Обязательное поле
       </div>
     </div>
+    <div class="flex justify-between">
+      <button
+        class="bg-none text-deepPurple underline"
+        @click.prevent="forgotPassword"
+      >
+        Забыли пароль?
+      </button>
+      <button
+        class="bg-none text-deepPurple underline"
+        @click.prevent="notRegistered"
+      >
+        Не зарегестрированы?
+      </button>
+    </div>
     <div class="grid gap-4 grid-cols-2">
       <button
         class="bg-lightgray border-gray-400 border-2 text-darkgray p-4 w-full rounded-lg font-light"
@@ -116,6 +130,12 @@ export default {
     },
     cancelClick() {
       this.$emit('cancel');
+    },
+    forgotPassword() {
+      this.$emit('forgot-password');
+    },
+    notRegistered() {
+      this.$emit('notRegistered');
     },
   },
 };

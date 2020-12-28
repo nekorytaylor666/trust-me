@@ -31,6 +31,7 @@
         Обязательное поле
       </div>
     </div>
+
     <div class="grid gap-4 grid-cols-2">
       <button
         class="bg-lightgray border-gray-400 border-2 text-darkgray p-4 w-full rounded-lg font-light"

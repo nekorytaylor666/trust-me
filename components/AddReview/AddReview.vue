@@ -38,7 +38,10 @@
           <div class="flex items-center">
             <p>Ваша оценка:</p>
             <div class="flex-grow flex justify-center">
-              <star-rating :rating="2" />
+              <star-rating-input
+                :grade="evaluation"
+                @change="changeEvaluation"
+              />
             </div>
           </div>
           <div class="flex flex-col">
@@ -55,6 +58,7 @@
 
             <textarea
               id="reviewText"
+              v-model="reviewText"
               name="reviewText"
               rows="4"
               cols="50"
@@ -117,7 +121,7 @@
                   type="text"
                   name="Plus"
                   placeholder="Введите плюсы компании"
-                  @keyup.enter="addFeature('pluses')"
+                  @keyup.enter.prevent="addFeature('pluses')"
                 />
               </fieldset>
 
@@ -158,7 +162,7 @@
                   class="px-4 p-2 bg-lightgray text-accentGray flex items-center w-full rounded-lg"
                   name="minus"
                   placeholder="Введите минусы компании"
-                  @keyup.enter="addFeature('minuses')"
+                  @keyup.enter.prevent="addFeature('minuses')"
                 />
               </fieldset>
               <ul class="flex flex-wrap mt-4">
@@ -174,7 +178,12 @@
               </ul>
             </div>
           </div>
-          <base-button>Отправить</base-button>
+          <input
+            class="bg-deepPurple text-white p-4 rounded-lg w-full text-lg"
+            type="button"
+            value="Отправить"
+            @click="sendReview"
+          />
         </form>
       </div>
     </Pane>
@@ -182,18 +191,19 @@
 </template>
 
 <script>
-import BaseButton from '../BaseButton/BaseButton.vue';
-import StarRating from '../StarRating/StarRating.vue';
+import StarRatingInput from '../StarRatingInput/StarRatingInput.vue';
 import TrInput from '../TrInput/TrInput.vue';
 export default {
-  components: { TrInput, BaseButton, StarRating },
+  components: { TrInput, StarRatingInput },
   data() {
     return {
+      evaluation: 0,
+      reviewText: '',
       features: {
         currentPlus: '',
         currentMinus: '',
-        pluses: ['Адекватность', 'Адекватность'],
-        minuses: ['Адекватность', 'Адекватность'],
+        pluses: [],
+        minuses: [],
       },
     };
   },
@@ -209,6 +219,17 @@ export default {
     },
     removeFeature(type, index) {
       this.features[type].splice(index, 1);
+    },
+    sendReview() {
+      this.$emit('on-review', {
+        evaluation: this.evaluation,
+        reviewText: this.reviewText,
+        pluses: this.features.pluses,
+        minuses: this.features.minuses,
+      });
+    },
+    changeEvaluation(value) {
+      this.evaluation = value;
     },
   },
 };

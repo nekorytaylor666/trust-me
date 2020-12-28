@@ -32,16 +32,17 @@
       v-if="currentForm === 'login'"
       :on-submit="onLoginSubmit"
       @cancel="cancelForm"
+      @not-registered="changeForm('login')"
     />
     <p v-if="loading">Loading...</p>
     <div v-if="error" class="mb-4">
       <p class="text-red-500 text-center">{{ error }}</p>
     </div>
-    <div class="p-4 border-t-2 border-lightgray">
+    <!-- <div class="p-4 border-t-2 border-lightgray">
       <social-login-button @click="onFacebookLogin"
         >facebook</social-login-button
       >
-    </div>
+    </div> -->
   </div>
 </template>
 

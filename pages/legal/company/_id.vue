@@ -50,7 +50,7 @@
     </Pane>
     <div class="py-4 grid-with-sidebar">
       <review-list-filter v-if="!addReviewMode" />
-      <add-review v-if="addReviewMode" />
+      <add-review v-if="addReviewMode" @on-review="sendReview" />
       <div class="space-y-6">
         <confirm-representation-pane v-if="!addReviewMode" />
         <last-reviews-sidebar :reviews="lastReviews" title="Последние отзывы" />
@@ -77,7 +77,7 @@ export default {
     this.companyInfo = await this.$axios.$get(
       `/Company/GetInfoCompany?id=${companyId}`
     );
-    console.log(this.companyInfo);
+    console.log('companyinfo', companyId, this.companyInfo);
   },
   data() {
     return {
@@ -115,6 +115,21 @@ export default {
   methods: {
     changeReviewMode(value) {
       this.addReviewMode = value;
+    },
+    async sendReview(review) {
+      try {
+        const res = await this.$axios.$post('/Reviews/AddReview', {
+          id: this.companyInfo.id,
+          description: review.reviewText,
+          plus: 'plusplusplusplus',
+          minus: 'minusminusminusminus',
+          evaulation: review.evaulation,
+          type: 0,
+        });
+        console.log('review:', review, this.companyInfo, res);
+      } catch (error) {
+        console.log(error.response);
+      }
     },
   },
 };
