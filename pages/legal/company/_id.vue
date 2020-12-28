@@ -121,8 +121,8 @@ export default {
         const res = await this.$axios.$post('/Reviews/AddReview', {
           id: this.companyInfo.id,
           description: review.reviewText,
-          plus: 'plusplusplusplus',
-          minus: 'minusminusminusminus',
+          plus: review.pluses,
+          minus: review.minuses,
           evaulation: review.evaulation,
           type: 0,
         });

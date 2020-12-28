@@ -120,4 +120,7 @@ export default {
   purgeCSS: {
     enabled: false,
   },
+  publicRuntimeConfig: {
+    featuresDivider: '&',
+  },
 };
