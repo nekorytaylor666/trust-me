@@ -4,22 +4,41 @@
     <Pane class="mt-4">
       <div class="flex justify-between items-center p-6 px-8">
         <div class="flex space-x-4 items-center">
-          <p class="text-xl">Отзывы:</p>
-          <button
-            class="px-6 py-2 bg-deepPurple border-2 border-deepPurple text-white rounded-lg"
-          >
-            Работодатель (152)
-          </button>
-          <button
-            class="px-6 py-2 bg-white border-2 border-deepPurple text-deepPurple rounded-lg"
-          >
-            Исполнитель (23)
-          </button>
-          <button
-            class="px-6 py-2 bg-white border-2 border-deepPurple text-deepPurple rounded-lg"
-          >
-            Заказчик (14)
-          </button>
+          <p class="text-xl">Роль:</p>
+          <input
+            id="employer"
+            v-model="currentRole"
+            class="hidden"
+            type="radio"
+            name="role"
+            value="employer"
+            checked
+          />
+          <label for="employer">
+            <div class="role-button">Работодатель</div>
+          </label>
+          <input
+            id="executer"
+            v-model="currentRole"
+            class="hidden"
+            type="radio"
+            name="role"
+            value="executer"
+          />
+          <label for="executer">
+            <div class="role-button">Исполнитель</div>
+          </label>
+          <input
+            id="client"
+            v-model="currentRole"
+            class="hidden"
+            type="radio"
+            name="role"
+            value="client"
+          />
+          <label for="client">
+            <div class="role-button">Заказчик</div>
+          </label>
         </div>
         <div>
           <div class="flex items-center space-x-4">
@@ -50,7 +69,7 @@
     </Pane>
     <div class="py-4 grid-with-sidebar">
       <review-list-filter v-if="!addReviewMode" />
-      <add-review v-if="addReviewMode" @on-review="sendReview" />
+      <add-review-employer v-if="addReviewMode" @on-review="sendReview" />
       <div class="space-y-6">
         <confirm-representation-pane v-if="!addReviewMode" />
         <last-reviews-sidebar :reviews="lastReviews" title="Последние отзывы" />
@@ -61,7 +80,7 @@
 </template>
 
 <script>
-import AddReview from '../../../components/AddReview/AddReview.vue';
+import AddReviewEmployer from '../../../components/AddReview/AddReviewEmployer.vue';
 import CompanyHeader from '../../../components/Company/CompanyHeader.vue';
 import ConfirmRepresentationPane from '../../../components/Company/ConfirmRepresentationPane.vue';
 import ReviewListFilter from '../../../components/ReviewListFilter/ReviewListFilter.vue';
@@ -70,7 +89,7 @@ export default {
     CompanyHeader,
     ReviewListFilter,
     ConfirmRepresentationPane,
-    AddReview,
+    AddReviewEmployer,
   },
   async fetch() {
     const companyId = this.$route.params.id;
@@ -110,6 +129,7 @@ export default {
         },
       ],
       companyInfo: null,
+      currentRole: 'employer',
     };
   },
   methods: {
@@ -140,5 +160,15 @@ export default {
   display: grid;
   grid-template-columns: 5fr 2fr;
   gap: 1rem;
+}
+
+.role-button {
+  @apply px-6 py-2 bg-none border-2 border-deepPurple text-deepPurple rounded-lg;
+}
+/* px-6 py-2 bg-lightgray border-2 border-ligbg-lightgray text-white rounded-lg; */
+input[type='radio']:checked + label {
+  .role-button {
+    @apply bg-deepPurple text-white;
+  }
 }
 </style>

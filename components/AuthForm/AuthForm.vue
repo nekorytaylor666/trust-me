@@ -103,6 +103,7 @@ export default {
         });
         console.log(res, resLogin);
         this.$emit('close');
+        this.$router.go({ path: '/' });
       } catch (error) {
         this.error = 'Неверный код';
       }
@@ -115,6 +116,7 @@ export default {
         });
 
         this.$emit('close');
+        this.$router.go({ path: '/' });
       } catch (error) {
         this.error = 'Неправильный логин или пароль';
       }

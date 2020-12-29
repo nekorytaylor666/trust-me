@@ -144,7 +144,7 @@
           </div>
           <div v-else class="flex items-center space-x-8">
             <p class="text-xl font-bold text-deepPurple">
-              {{ user.name }}
+              {{ user.phone }}
             </p>
             <button class="text-deepPurple underline" @click="logoutClick">
               Log out
@@ -233,7 +233,7 @@ export default {
 }
 
 .sticky {
-  @apply fixed top-0 w-full;
+  @apply fixed top-0 w-full z-50;
 }
 
 .stickyOffset + div {

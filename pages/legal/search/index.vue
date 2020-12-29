@@ -35,13 +35,18 @@ export default {
     console.log(this.entities);
   },
   data() {
-    return {
-      entities: [],
-      searchValue: '',
-    };
+    return { entities: [], searchValue: '', loading: false };
   },
   watch: {
     '$route.query': '$fetch',
+  },
+  methods: {
+    start() {
+      this.loading = true;
+    },
+    finish() {
+      this.loading = false;
+    },
   },
 };
 </script>

@@ -19,6 +19,7 @@ export default {
     '~/plugins/vue-modal.js',
     '~/plugins/vuelidate.js',
     '~/plugins/vue-mask.js',
+    '~/plugins/vue-select.js',
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
