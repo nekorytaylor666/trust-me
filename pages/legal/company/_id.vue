@@ -68,7 +68,7 @@
       </div>
     </Pane>
     <div class="py-4 grid-with-sidebar">
-      <review-list-filter v-if="!addReviewMode" />
+      <review-list-filter v-if="!addReviewMode" :reviews="companyReviews" />
       <add-review-employer v-if="addReviewMode" @on-review="sendReview" />
       <div class="space-y-6">
         <confirm-representation-pane v-if="!addReviewMode" />
@@ -96,7 +96,15 @@ export default {
     this.companyInfo = await this.$axios.$get(
       `/Company/GetInfoCompany?id=${companyId}`
     );
-    console.log('companyinfo', companyId, this.companyInfo);
+    this.companyReviews = await this.$axios.$get(
+      `/Reviews/GetReviewsByCompany?id=${companyId}`
+    );
+    console.log(
+      'companyinfo',
+      companyId,
+      this.companyInfo,
+      this.companyReviews
+    );
   },
   data() {
     return {
@@ -130,6 +138,7 @@ export default {
       ],
       companyInfo: null,
       currentRole: 'employer',
+      companyReviews: [],
     };
   },
   methods: {

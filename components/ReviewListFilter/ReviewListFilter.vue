@@ -1,3 +1,4 @@
+import { required } from 'vuelidate/lib/validators';
 <template>
   <div class="space-y-8">
     <Pane>
@@ -21,16 +22,21 @@
         </div>
       </div>
     </Pane>
-    <review-card :company-link="false" :add-comment="false" />
-    <review-card :company-link="false" :add-comment="false" />
-    <review-card :company-link="false" :add-comment="false" />
-    <review-card :company-link="false" :add-comment="false" />
-    <review-card :company-link="false" :add-comment="false" />
+    <review-card
+      v-for="review in reviews"
+      :key="review.id"
+      :company-link="false"
+      :add-comment="false"
+    />
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    reviews: { type: Array },
+  },
+};
 </script>
 
 <style lang="scss" scoped></style>

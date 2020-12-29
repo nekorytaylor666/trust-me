@@ -395,7 +395,7 @@
               </ul>
             </div>
           </div>
-          <div class="flex items-center justify-between">
+          <div v-if="!extented" class="flex items-center justify-between">
             <p class="text-lg">
               Чтобы получить больше больше
               <span class="text-deepPurple"> TrustPoints </span>заполните больше
@@ -403,9 +403,17 @@
             </p>
             <div
               class="bg-deepPurple text-white px-8 py-2 rounded-lg cursor-pointer"
-              @click.prevent.stop="extendForm"
+              @click.prevent.stop="extendForm(true)"
             >
               Расширенная форма
+            </div>
+          </div>
+          <div v-if="extented" class="flex items-center justify-end">
+            <div
+              class="bg-none text-deepPurple border-2 border-deepPurple px-8 py-2 rounded-lg cursor-pointer"
+              @click.prevent.stop="extendForm(false)"
+            >
+              Скрыть форму
             </div>
           </div>
           <input
@@ -569,8 +577,8 @@ export default {
     changeEvaluation(value) {
       this.$v.evaluation.$model = value;
     },
-    extendForm() {
-      this.extented = true;
+    extendForm(value) {
+      this.extented = value;
     },
   },
 };
