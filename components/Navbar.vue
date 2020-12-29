@@ -114,10 +114,12 @@
               />
               <input
                 id="search"
+                v-model="searchValue"
                 type="text"
                 name="search"
                 class="bg-transparent w-64 outline-none font-light"
                 placeholder="Поиск по БИН / Наименованию"
+                @keyup.enter="searchCompany"
               />
             </div>
           </div>
@@ -161,6 +163,7 @@ export default {
   data() {
     return {
       sticky: 0,
+      searchValue: '',
       user: this.$store.state.auth.user,
     };
   },
@@ -183,6 +186,11 @@ export default {
     console.log(this.$auth.strategy.token.get());
   },
   methods: {
+    searchCompany() {
+      this.$router.replace({
+        path: '/legal/search?search=' + decodeURIComponent(this.searchValue),
+      });
+    },
     logoutClick() {
       this.$auth.logout();
     },

@@ -81,7 +81,7 @@ export default {
   },
   data() {
     return {
-      addReviewMode: true,
+      addReviewMode: false,
       lastReviews: [
         {
           author: { fullName: 'Джон' },
